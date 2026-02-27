@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌐 GeoInfo</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script defer src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script defer src="./script.js"></script>
+</head>
+<body>
+    <i class="fas fa-cog settings-icon" id="settingsIcon"></i>
+    <div class="settings-menu" id="settingsMenu">
+        <h3>Settings</h3>
+        <div class="menu-option">
+            <span class="settings-menu-span">Dark/Light <br>Mode</span>
+            <label class="switch">
+                <input type="checkbox" id="darkModeToggle"> 
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="menu-option centered-option"> 
+            <button id="favoritesButton">Favorite Countries</button>
+        </div>
+            
+        <div class="menu-option">
+            <span class="settings-menu-span">Base <br>Currency</span>
+            <select id="conversionCurrencySelect"></select>
+        </div>
+        <div class="cog-placeholder"></div>
+    </div>
+    
+
+    <section class="main-section" id="mainSection">
+        <div class="main-container" id="mainView" data-aos="zoom-in" data-aos-duration="1000">
+            <div class="logo" data-aos="fade-down" data-aos-delay="400">
+                <img src="assets/jasne_logo.png" alt="Site Logo" class="site-logo" id="siteLogo">
+            </div>
+
+            <div class="search-box" data-aos="fade-up" data-aos-delay="600">
+                <input type="text" placeholder="Search..." class="search-input" autocomplete="off">
+                <i class="fas fa-search search-icon" id="searchIcon"></i>
+            </div>
+            <div  id="suggestionsBox">
+                <div class="suggestions" id="suggestions"></div>
+            </div>
+            <p class="description-text" data-aos="zoom-in" data-aos-delay="800">
+                Find information <br> about the country you are interested in
+            </p>
+        </div>
+    </section>
+
+    <div class="country-details-view hidden-view" id="countryDetailsView">
+        
+        <div class="details-header" data-aos="fade-down" data-aos-duration="600">
+            <div class="search-box small-search" id="detailsSearchBox">
+                <input type="text" placeholder="Search..." class="search-input details-search-input" autocomplete="off">
+                <i class="fas fa-search search-icon" id="detailsSearchIcon"></i>
+                <div class="suggestions" id="detailsSuggestions"></div>
+            </div>
+            
+            <div class="logo-small" data-aos="zoom-in" data-aos-delay="200">
+                <img src="assets/jasne_logo.png" alt="Site Logo" class="site-logo" id="siteLogoSmall">
+            </div>
+            </div>
+        <div class="content-wrapper">
+            
+            <div class="country-info-block" id="countryInfoBlock" data-aos="fade-right" data-aos-duration="800">
+                <i class="far fa-star favorite-icon" id="favoriteStar" data-aos="zoom-in" data-aos-delay="300"></i> 
+                
+                <div class="info-content">
+                    <div class="flag-and-name">
+                        <img src="" alt="Country Flag" class="country-flag" id="countryFlag" data-aos="zoom-in" data-aos-delay="400">
+                        <h2 class="country-name" id="countryName" data-aos="fade-right" data-aos-delay="500">Country Name</h2>
+                    </div>
+
+                    <div class="country-data">
+                        <p data-aos="fade-left" data-aos-delay="600"><strong>Capital:</strong> <span id="countryCapital">N/A</span></p>
+                        <p data-aos="fade-left" data-aos-delay="700"><strong>Region:</strong> <span id="countryRegion">N/A</span></p>
+                        <p data-aos="fade-left" data-aos-delay="800"><strong>Population:</strong> <span id="countryPopulation">N/A</span></p>
+                        <p data-aos="fade-left" data-aos-delay="900"><strong>Currency:</strong> <span id="countryCurrency">N/A</span></p>
+                        <p data-aos="fade-left" data-aos-delay="1000"><strong>Language:</strong> <span id="countryLanguage">N/A</span></p>
+                        <p data-aos="fade-left" data-aos-delay="1100"><strong>Timezone:</strong> <span id="countryTimezone">N/A</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="currency-exchange-block" id="currencyExchangeBlock" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
+                <div class="exchange-header">
+                    <div class="currency-converter" data-aos="fade-up" data-aos-delay="400">
+                        <label for="currencyAmount">Currency Converter:</label>
+                        <span id="currencyAmount" class="static-amount">1</span> 
+                        <span id="currencyCode"></span>
+                        <span id="na">to</span>
+                        <span id="conversionCurrencyCode"></span> 
+                        <span id="convertedAmount"></span>
+                    </div>
+                    
+                    <div class="chart-controls">
+                        <button class="chart-btn active" data-period="7" data-aos="fade-up" data-aos-delay="500">Week</button>
+                        <button class="chart-btn" data-period="30" data-aos="fade-up" data-aos-delay="600">Month</button>
+                        <button class="chart-btn" data-period="365" data-aos="fade-up" data-aos-delay="700">Year</button>
+                    </div>
+                    
+                    <button id="calculatorButton" class="calculator-btn" data-aos="zoom-in" data-aos-delay="800">Calculator</button>
+                </div>
+                
+                <div class="chart-placeholder" data-aos="zoom-in" data-aos-delay="900">
+                    <div class="spinner-loader" id="chartSpinner"></div>
+                    <canvas id="currencyChart"></canvas>
+                    <p id="chartMessage" class="chart-message hidden">Currency exchange rate chart placeholder.</p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="favorites-overlay" id="favoritesOverlay">
+        <div class="favorites-content" data-aos="zoom-in" data-aos-duration="500">
+            <h2>Favorites</h2>
+            <p>List of favorite countries...</p>
+            <button id="closeFavorites">Close</button>
+        </div>
+    </div>
+    
+    <footer class="site-footer">
+        <p>&copy; 2025 Dawid and Szymon. All rights reserved.</p>
+    </footer>
+    <div class="calculator-overlay" id="calculatorOverlay">
+    <div class="calculator-content" data-aos="zoom-in" data-aos-duration="500">
+        <h2>Currency Calculator</h2>
+        
+        <div class="calculator-inputs">
+            <div class="input-group">
+                <label for="baseAmountInput">Amount in <span id="calcBaseCurrencyCode">XXX</span>:</label>
+                <input type="text" id="baseAmountInput" value="1" min="0.01" step="any" placeholder="Enter amount">
+            </div>
+            
+            <div class="conversion-result">
+                <i class="fas fa-equals"></i>
+                <p>
+                    <span id="calculatedAmount">0.00</span> 
+                    <span id="calcTargetCurrencyCode">YYY</span>
+                </p>
+            </div>
+            
+        </div>
+        
+        <button id="reverseConversionButton" class="reverse-button" title="Reverse Currencies">
+             <i class="fas fa-exchange-alt"></i> Reverse
+        </button>
+        <p class="conversion-rate-info">
+            Exchange Rate: 1 <span id="rateBaseCode">XXX</span> = <span id="rateValue">N/A</span> <span id="rateTargetCode">YYY</span>
+        </p>
+
+        <button id="closeCalculator">Close</button>
+    </div>
+</div>
+</body>
+</html>
